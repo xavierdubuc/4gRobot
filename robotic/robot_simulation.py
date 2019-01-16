@@ -123,7 +123,6 @@ class RobotSimulation:
         Print a map of the environment and the position of the robot.
         :return: None
         """
-        print(self.robot.environment)
         if isinstance(self.robot.environment, RectangularEnvironment):
             # first line
             self._print_border()
