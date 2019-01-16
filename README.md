@@ -13,7 +13,7 @@ You can execute the `run.py` script which allows you to interact with a robot.
 python run.py -i
 ```
 
-The script allows multiple "mode" which can be enabled through script options:
+The script allows multiple "modes" which can be enabled through script options:
 - `--interactive` or `-i` : *interactive* mode in which you can send instructions to the robot in real time
 - `--file` or `-f filepath` : *file* mode allows you to give the path to a file containing instructions for the robot
 (the file `example.txt` is here for you to try) :
