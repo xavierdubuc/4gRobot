@@ -1,4 +1,5 @@
 import unittest
+from io import StringIO
 from unittest.mock import patch
 
 from instruction.report import ReportInstruction
@@ -10,7 +11,7 @@ class ReportTestCase(unittest.TestCase):
     def setUp(self):
         self.robot = Robot()
         self.robot.place(1, 2, Direction.SOUTH)
-        self.report_instruction = ReportInstruction()
+        self.report_instruction = ReportInstruction(output=StringIO())
 
     @patch('robotic.robot.Robot.report')
     def test_good_params(self, report_patch):
