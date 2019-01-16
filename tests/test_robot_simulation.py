@@ -113,7 +113,6 @@ class RobotSimulationTestCase(unittest.TestCase):
 
         # BORDERS
         for map_border in map_borders:
-            print(map_border)
             self.assertEqual(map_border[0], '+')
             self.assertEqual(map_border[-1], '+')
             for char in map_border[1:-1]:
