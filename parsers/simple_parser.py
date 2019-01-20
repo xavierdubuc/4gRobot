@@ -53,6 +53,16 @@ class SimpleInstructionParser(AbstractInstructionParser):
             'REPORT': ReportInstruction(output=output)
         }
 
+    def set_output(self, output:TextIOBase):
+        """
+        Set the output used by this parser. This method is responsible to
+        propagate the modification to its defined instructions.
+        :param output:
+        :type output: TextIOBase
+        :return: None
+        """
+        self.instructions['REPORT'].output = output
+
     def parse_str(self, text: str):
         """
         Parse a given "program" containing a bunch of instructions for the robot
