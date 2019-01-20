@@ -1,0 +1,16 @@
+.card-inner{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    .fullsize{
+        flex-grow: 1
+    }
+}
+
+.card-footer{
+    display:flex;
+    justify-content: flex-end;
+    padding: 0 15px 15px 0;
+}

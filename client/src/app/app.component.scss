@@ -1,0 +1,27 @@
+.fill-space{
+    flex: 1 1 auto;
+}
+
+.copyright{
+    padding-top:10px;
+}
+.muted{
+    font-size: 12px;
+    font-weight: normal;
+    color: #eee;
+}
+
+.container{
+    min-width: 1048px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+.instruction-panel, .messages-panel{
+    flex: 0 0 35%;
+}
+.main-panel{
+    flex: 0 0 28%;
+}

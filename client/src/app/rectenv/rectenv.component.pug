@@ -1,0 +1,9 @@
+mat-card
+    mat-card-content.environment
+        mat-grid-list(cols="{{sizeX}}")
+            div('*ngFor'="let row of tiles; let y = index")
+                mat-grid-tile('*ngFor'="let tile of row; let x = index")
+                    span('*ngIf'="robot_is_in_tile(robot, x, y)")
+                        robot([robot]="robot")
+                    span('*ngIf'="!robot_is_in_tile(robot, x, y) && !tile_is_empty(x,y)")
+                        mat-icon.empty-tile fiber_manual_record

@@ -1,0 +1,24 @@
+.card-footer{
+    display:flex;
+    justify-content: flex-end;
+    padding: 0 15px 15px 0;
+}
+
+mat-list{
+    &.mat-list-instruction{
+        max-height: 330px;
+        overflow-y: auto;
+    }
+    .mat-list-item{
+        &.mat-instruction-list-item{
+            height:20px;
+            font-size: 12px;
+            &.message-info{
+                color:#5b97f0;
+            }
+            &.message-error{
+                color:#f05b5b;
+            }
+        }
+    }
+}

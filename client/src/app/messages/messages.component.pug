@@ -1,0 +1,15 @@
+mat-card
+  mat-card-header
+    mat-card-title Messages
+    mat-card-subtitle You can see here the messages from the robot
+  mat-card-content
+    div.card-inner
+      mat-list.mat-list-instruction
+        mat-list-item.mat-instruction-list-item.message-info Hi I'm Alice !
+        mat-list-item.mat-instruction-list-item('*ngFor'="let message of messagesContainerService.messages", '[ngClass]'="'message-'+message.type") {{display(message)}}
+        mat-list-item.mat-instruction-list-item('*ngIf'="!messagesContainerService.has_messages()") No other message so far.
+  mat-card-footer
+    div.card-footer
+      button(mat-flat-button color="primary" '(click)'="messagesContainerService.clear()")
+        mat-icon delete
+        span &nbsp;CLEAR

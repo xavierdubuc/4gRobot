@@ -1,0 +1,18 @@
+mat-toolbar(color="primary")
+    span 4GRobot
+    div.copyright
+      span.muted &nbsp;&nbsp;By Xavier Dubuc
+    span.fill-space
+    button(mat-icon-button)
+        mat-icon(aria-label="Reset" matTooltip="Reset" '(click)'="reset()") refresh
+
+div(style="text-align:center")
+  h1 4GRobot
+
+.container
+  .instruction-panel
+    robot-controller('[robot]'="robot")
+  .main-panel
+    app-rectenv('[robot]'="robot" sizeX="5" sizeY="5")
+  .messages-panel
+    messages('[robot]'="robot")

@@ -1,0 +1,19 @@
+mat-card
+  mat-card-header
+    mat-card-title Controller
+    mat-card-subtitle You can control the robot and its environment here
+  mat-card-content
+    div.card-inner
+      mat-form-field.fullsize
+        textarea(matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="5"
+                  cdkAutosizeMaxRows="20"
+                  '#instructions'
+                  placeholder="Enter instructions here (one by line)")
+  mat-card-footer
+    div.card-footer
+      button(mat-flat-button color="primary" '(click)'="execute(instructions.value)")
+        mat-icon send
+        span &nbsp;EXECUTE
