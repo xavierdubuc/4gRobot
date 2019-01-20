@@ -2,30 +2,22 @@ import sys
 from io import TextIOBase
 
 from environment.rectangular_environment import RectangularEnvironment
-from instruction.error.bad_instruction_param_amount import \
-    BadInstructionParamAmountError
-from instruction.error.bad_instruction_param_type import \
-    BadInstructionParamTypeError
+from instruction.instruction import Instruction
 from instruction.report import ReportInstruction
 from orientation.direction import Direction
 from parsers.abstract_parser import AbstractInstructionParser
-from parsers.simple_parser import SimpleInstructionParser
+from robotic.abstract_robot_simulation import AbstractRobotSimulation
 from robotic.robot import Robot
 
 
-class RobotSimulation:
+class CliRobotSimulation(AbstractRobotSimulation):
     """
-    RobotSimulation is a class allowing to launch a simulation of a Robot with
+    CliRobotSimulation is a class allowing to launch a simulation of a Robot with
     interaction from a user :
     - interactively by using interactive method,
     - programmatically by using exec (or input if passing str)
     - by passing instructions through a file (using method read_from_file)
     """
-
-    error_messages = {
-        'bad_params_amount': 'ERROR: Too much or too few parameters',
-        'bad_param_type': 'ERROR: Bad parameter type'
-    }
 
     def __init__(self, robot: Robot, output: TextIOBase = sys.stdout,
                  verbose=False, stop_interactive_keyword: str = "SHUTDOWN",
@@ -47,13 +39,10 @@ class RobotSimulation:
         user (default SimpleInstructionParser)
         :type parser: AbstractInstructionParser
         """
-        self.robot = robot
-        self.output = output
+        super().__init__(robot, parser, output)
         self.verbose = verbose
         if self.verbose:
             self.border = None
-        self.parser = parser if parser is not None else SimpleInstructionParser(
-            output=self.output)
         self.stop_interactive_keyword = stop_interactive_keyword
         self.interactive_prompt = 'Give me an instruction ! ({} to leave)\n'.format(
             self.stop_interactive_keyword)
@@ -73,40 +62,6 @@ class RobotSimulation:
                 self.input('REPORT')
             str_instruction = input(self.interactive_prompt).upper()
 
-    def input(self, input: str):
-        """
-        Input a string in the parser. The string can contain one or multiple
-        instructions for the robot. The parser parses it and executes what
-        should be
-        :param input: The input to parse.
-        :type input: str
-        :return: None
-        """
-        instructions = self.parser.parse_str(input)
-        self.exec(instructions)
-
-    def exec(self, instructions: list):
-        """
-        Execute a list of instruction.
-        :param instructions: A list of dict objects build like that:
-        - 'command': the instruction object to be executed
-        - 'args': the arguments the instruction object need to fulfill its
-        execution
-        :type instructions: list
-        :return: None
-        """
-        for instruction in instructions:
-            try:
-                instruction['command'].apply(self.robot, *instruction['args'])
-            except BadInstructionParamAmountError:
-                self.output.write(
-                    self.error_messages['bad_params_amount'] + '\n')
-            except BadInstructionParamTypeError:
-                self.output.write(self.error_messages['bad_param_type'] + '\n')
-            if self.verbose and not isinstance(instruction['command'],
-                                               ReportInstruction):
-                self._print_map()
-
     def read_from_file(self, filepath: str):
         """
         Read a file of instruction and executes every instruction found.
@@ -117,6 +72,37 @@ class RobotSimulation:
         with open(filepath) as file:
             for line in file:
                 self.input(line)
+
+    def _handle_bad_param_amount(self, instruction: dict):
+        """
+        Method called when an instruction is called with a bad amount of
+        parameters.
+        :param instruction: the called instruction
+        :type instruction: dict
+        :return: None
+        """
+        self.output.write(self.error_messages['bad_params_amount'] + '\n')
+
+    def _handle_bad_param_type(self, instruction: dict):
+        """
+        Method called when an instruction is called with a parameter of a wrong
+        type.
+        :param instruction: the called instruction
+        :type instruction: dict
+        :return: None
+        """
+        self.output.write(self.error_messages['bad_param_type'] + '\n')
+
+    def _extra_instruction_handling(self, instruction: dict):
+        """
+        Method called after an instruction has been handled.
+        :param instruction: the called instruction
+        :type instruction: dict
+        :return: None
+        """
+        if self.verbose and not isinstance(instruction['command'],
+                                           ReportInstruction):
+            self._print_map()
 
     def _print_map(self):
         """
