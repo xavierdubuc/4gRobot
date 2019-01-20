@@ -49,6 +49,7 @@ I did no test for this part as I did not have the time...
 
 ### Future thoughts
 
+- Make unit tests in client app
 - Make e2e tests in client app
 - Make robot name editable in client app
 - Make environment editable in client app
