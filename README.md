@@ -2,9 +2,65 @@
 
 Here is my resolution of the exercice proposed by [4GClinical](https://4gclinical.com/home).
 
-## Installing / Getting started
+## Client/Server Version
 
-You just need python 3.5.2, it may work on other versions but I developed and tested it on this version.
+### Installing / Getting started
+
+#### Server
+You need python 3.5.2 but you also need to install project dependencies by running :
+
+```bash
+pip install -r requirements.txt
+```
+
+#### Client
+
+You need angular cli tools, you can get it by running : 
+
+```bash
+npm install -g @angular/cli
+```
+
+*Be aware that Angular requires Node.js version 8.x or 10.x.
+To check your version, run node -v in a terminal/console window.
+To get Node.js, go to [nodejs.org](https://nodejs.org).*
+
+Then you can to install the project dependencies by running :
+ 
+```bash
+npm install
+```
+
+### Run
+
+You need to run the pyramid server :
+```bash
+python server.py
+```
+
+And also the Angular builtin server to launch the client side.
+```bash
+ng serve --open
+```
+
+### Tests
+
+I did no test for this part as I did not have the time...
+
+### Future thoughts
+
+- Make e2e tests in client app
+- Make robot name editable in client app
+- Make environment editable in client app
+- Make the app responsive
+- Add comments to the app
+- Improve typescript utilisation (I'm still "too" close of javascript I think)
+
+## CLI Version
+
+### Installing / Getting started
+
+You need python 3.5.2, it may work on other versions but I developed and tested it on this version.
 
 ### Run
 
