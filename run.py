@@ -2,7 +2,7 @@ import argparse
 
 from environment.rectangular_environment import RectangularEnvironment
 from robotic.robot import Robot
-from robotic.robot_simulation import RobotSimulation
+from robotic.cli_robot_simulation import CliRobotSimulation
 
 
 class Command:
@@ -51,7 +51,7 @@ class Command:
             robot_params['name'] = args.name
         robot = Robot(**robot_params)
         verbose = args.verbose
-        simulator = RobotSimulation(robot, verbose=verbose)
+        simulator = CliRobotSimulation(robot, verbose=verbose)
 
         # STANDARD INPUT
         if args.execute is not None and len(args.execute) > 0:

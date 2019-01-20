@@ -9,14 +9,14 @@ from instruction.error.bad_instruction_param_type import \
 from instruction.left import LeftInstruction
 from instruction.place import PlaceInstruction
 from orientation.direction import Direction
+from robotic.cli_robot_simulation import CliRobotSimulation
 from robotic.robot import Robot
-from robotic.robot_simulation import RobotSimulation
 
 
 class RobotSimulationTestCase(unittest.TestCase):
     def setUp(self):
         self.robot = Robot()
-        self.robot_simulation = RobotSimulation(self.robot)
+        self.robot_simulation = CliRobotSimulation(self.robot)
 
     @patch('builtins.input', side_effect=['PLACE 0,0,NORTH', 'SHUTDOWN'])
     def test_interactive(self, mock):
@@ -25,7 +25,8 @@ class RobotSimulationTestCase(unittest.TestCase):
         self.assertEqual(self.robot.direction, Direction.NORTH)
 
     @patch('parsers.simple_parser.SimpleInstructionParser.parse_str')
-    @patch('robotic.robot_simulation.RobotSimulation.exec', return_value=None)
+    @patch('robotic.abstract_robot_simulation.AbstractRobotSimulation.exec',
+           return_value=None)
     def test_input(self, mock_exec, mock_parse_str):
         mock_parse_str.return_value = [
             {
@@ -75,8 +76,8 @@ class RobotSimulationTestCase(unittest.TestCase):
             m.assert_called_once_with(filename)
 
     def test_print_border(self):
-        spec_robot_simulation = RobotSimulation(self.robot, verbose=True,
-                                                output=MagicMock())
+        spec_robot_simulation = CliRobotSimulation(self.robot, verbose=True,
+                                                   output=MagicMock())
         self.assertTrue(hasattr(spec_robot_simulation, 'border'))
         self.assertIsNone(spec_robot_simulation.border)
         spec_robot_simulation._print_border()
@@ -102,8 +103,8 @@ class RobotSimulationTestCase(unittest.TestCase):
 
     def test_print_map(self):
         mock = StringIO()
-        robot_simulation = RobotSimulation(self.robot, verbose=True,
-                                           output=mock)
+        robot_simulation = CliRobotSimulation(self.robot, verbose=True,
+                                              output=mock)
         position = (0, 0)
         direction = Direction.NORTH
         self.robot.place(*position, direction)
