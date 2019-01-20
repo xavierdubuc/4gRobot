@@ -57,7 +57,7 @@ class SimpleInstructionParser(AbstractInstructionParser):
         """
         Set the output used by this parser. This method is responsible to
         propagate the modification to its defined instructions.
-        :param output:
+        :param output: the output to use from now on
         :type output: TextIOBase
         :return: None
         """
