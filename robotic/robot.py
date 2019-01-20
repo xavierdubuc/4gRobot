@@ -34,6 +34,15 @@ class Robot:
         self.position = None
         self.direction = None
 
+    def reset(self):
+        """
+        Reset the robot. It acts like it is removed from the environment and
+        thus has no position and no direction.
+        :return:
+        """
+        self.position = None
+        self.direction = None
+
     def place(self, x: int, y: int, direction: Direction):
         """
         Place the robot on a tile of the environment. If the given coordinates
